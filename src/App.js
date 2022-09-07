@@ -11,47 +11,43 @@ import {
 const App = () => {
   const [text, setText] = useState('');
 
-  const [listaPulseiras, setListaPulseiras] = useState([
-    {id: 123, nome: 'pulseira da maria'},
-    {id: 324, nome: 'joão'},
-    {id: Date.now(), nome: 'pulseira perdida'},
-  ]);
+  const [bracelets, setBracelets] = useState([]);
 
   const onPressHandler = () => {
     const bracelet = {
       id: Date.now(),
-      nome: text,
+      name: text,
     };
 
     setText('');
 
-    setListaPulseiras([...listaPulseiras, bracelet]);
+    setBracelets([...bracelets, bracelet]);
   };
 
-  const listarPulseiras = () => {
+  const listBracelets = () => {
     return (
       <FlatList
-        data={listaPulseiras}
+        data={bracelets}
         renderItem={({item}) => (
           <View style={styles.item} key={item.id}>
-            <Text style={styles.text_item}>{item.nome}</Text>
+            <Text style={styles.text_item}>{item.name}</Text>
           </View>
         )}
       />
     );
   };
 
-  const primeiraPulseira = () => {
+  const firstBracelet = () => {
     return (
-      <View style={styles.cadastro}>
+      <View style={styles.register}>
         <Text style={styles.text}>Cadastre a primeira pulseira:</Text>
       </View>
     );
   };
 
-  const cadastrarPulseira = () => {
+  const registerBracelet = () => {
     return (
-      <View style={styles.cadastro}>
+      <View style={styles.register}>
         <TextInput
           style={styles.input}
           placeholder="Pulseira da fulana"
@@ -71,9 +67,8 @@ const App = () => {
         <Text style={styles.text_header}>Lista de pulseiras</Text>
       </View>
       <View style={styles.body}>
-        <Text style={styles.text}>{listaPulseiras.length.toString()}</Text>
-        {listaPulseiras.length > 0 ? listarPulseiras() : primeiraPulseira()}
-        {cadastrarPulseira()}
+        {bracelets.length > 0 ? listBracelets() : firstBracelet()}
+        {registerBracelet()}
       </View>
     </View>
   );
@@ -87,7 +82,7 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     justifyContent: 'flex-start',
   },
-  cadastro: {
+  register: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
