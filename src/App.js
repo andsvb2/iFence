@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+  Alert,
   FlatList,
   StyleSheet,
   Text,
@@ -23,10 +24,18 @@ const App = () => {
   };
 
   const deleteBracelete = item => {
-    // eslint-disable-next-line no-shadow
-    setBracelets(bracelets => {
-      return bracelets.filter((value, index) => value !== item);
-    });
+    Alert.alert('Cuidado', `Gostaria de excluir a pulseira de ${item.name}?`, [
+      {text: 'Cancelar'},
+      {
+        text: 'Excluir',
+        onPress: () => {
+          // eslint-disable-next-line no-shadow
+          setBracelets(bracelets => {
+            return bracelets.filter((value, index) => value !== item);
+          });
+        },
+      },
+    ]);
   };
 
   const listBracelets = () => {
