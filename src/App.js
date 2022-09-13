@@ -18,10 +18,15 @@ const App = () => {
       id: Date.now(),
       name: text,
     };
-
     setText('');
-
     setBracelets([...bracelets, bracelet]);
+  };
+
+  const deleteBracelete = item => {
+    // eslint-disable-next-line no-shadow
+    setBracelets(bracelets => {
+      return bracelets.filter((value, index) => value !== item);
+    });
   };
 
   const listBracelets = () => {
@@ -29,8 +34,16 @@ const App = () => {
       <FlatList
         data={bracelets}
         renderItem={({item}) => (
-          <View style={styles.item} key={item.id}>
-            <Text style={styles.text_item}>{item.name}</Text>
+          // eslint-disable-next-line react-native/no-inline-styles
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View style={styles.item} key={item.id}>
+              <Text style={styles.text_item}>{item.name}</Text>
+            </View>
+            <TouchableOpacity
+              style={styles.deleteButton}
+              onPress={() => deleteBracelete(item)}>
+              <Text style={styles.text}>Excluir</Text>
+            </TouchableOpacity>
           </View>
         )}
       />
@@ -94,6 +107,7 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
   item: {
+    flex: 3,
     borderBottomWidth: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -129,6 +143,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     margin: 5,
+  },
+  deleteButton: {
+    // flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#037272',
+    padding: 10,
+    borderRadius: 8,
   },
 });
 
